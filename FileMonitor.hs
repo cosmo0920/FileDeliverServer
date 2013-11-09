@@ -1,6 +1,7 @@
 import System.Directory
 import System.IO
 import Filesystem hiding (readFile)
+import qualified Filesystem.Path.Rules as FR
 import qualified Filesystem.Path.CurrentOS as FP
 import System.FSNotify
 import Data.Digest.Pure.SHA
@@ -12,7 +13,9 @@ import Encode
 main :: IO ()
 main = do
   dir <- getCurrentDirectory
-  setCurrentDirectory dir
+  let path = FP.decodeString dir
+  putStrLn $ FP.encodeString path
+  setCurrentDirectory $ FP.encodeString path
   wd <- getWorkingDirectory
   print wd
   man <- startManager
