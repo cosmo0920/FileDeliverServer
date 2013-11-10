@@ -9,6 +9,7 @@ import qualified Data.ByteString.Lazy.Char8 as BL
 import qualified Data.Text                  as T
 import Data.Text.Encoding
 import Control.Monad
+import Control.Concurrent
 import System.Exit
 import Encode
 
@@ -24,7 +25,7 @@ main = do
   putStrLn $ "[watch] " ++ show wd
   man <- startManager
   forever $ do
-    watchTree man wd (const True) $ \event ->
+    forkIO $ watchTree man wd (const True) $ \event ->
       case event of
         Modified  dir' _ -> do
                    contentsSHA1 <- showSHA1 dir'
