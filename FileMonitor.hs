@@ -25,7 +25,7 @@ main = do
   putStrLn $ "[watch] " ++ show wd
   man <- startManager
   forever $ do
-    forkIO $ watchTree man wd (const True) $ \event ->
+    _ <- forkIO $ watchTree man wd (const True) $ \event ->
       case event of
         Modified  dir' _ -> do
                    contentsSHA1 <- showSHA1 dir'
