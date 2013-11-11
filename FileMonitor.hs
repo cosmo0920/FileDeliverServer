@@ -11,7 +11,9 @@ import Data.Text.Encoding
 import Control.Monad
 import Control.Concurrent
 import System.Exit
+import Web.Scotty
 import Encode
+import RecursiveDir
 
 main :: IO ()
 main = do
@@ -35,13 +37,20 @@ main = do
                    putStrLn $ "Added: " ++ show contentsSHA1
         Removed   dir' _ -> do
                    putStrLn $ "Removed: " ++ show dir'
+    _ <- forkIO $ scotty 3001 $ do
+      get "/assetlist.json" $ do
+        json ("Scotty, up!" :: String)
+    _ <- forkIO $ do
+      directory <- getCurrentDirectory
+      filesRelative <- getFileWithRelativePath directory
+      putStrLn $ show filesRelative
 
-    print "input 'quit' to quit"
+    putStrLn "input 'quit' to quit"
     line <- getLine
     when (line == "quit") $ do
-      print "watching stopped"
+      putStrLn "watching stopped"
       stopManager man
-      print "quit"
+      putStrLn "quit"
       exitSuccess
 
 sha1Digest :: String -> String
