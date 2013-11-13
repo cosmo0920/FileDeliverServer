@@ -9,6 +9,7 @@ import Control.Monad.IO.Class
 import Control.Concurrent
 import System.Exit
 import Web.Scotty
+import Network.Wai.Middleware.Static
 import RecursiveDir
 import MkJson
 import CalcSHA
@@ -35,6 +36,8 @@ main = do
         Removed   dir' _ -> do
                    putStrLn $ "Removed: " ++ show dir'
     _ <- forkIO $ scotty 3001 $ do
+      currentDir <- liftIO $ getCurrentDirectory
+      middleware $ staticPolicy $ addBase currentDir
       get "/assetlist.json" $ do
         directory <- liftIO $ getCurrentDirectory
         filesRelative <- liftIO $ getFileWithRelativePath directory

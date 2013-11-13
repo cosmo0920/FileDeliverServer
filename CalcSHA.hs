@@ -12,6 +12,12 @@ showSHA1 dir = do
   let digest = sha1Digest content
   return digest
 
+showSHA1' :: FilePath -> String
+showSHA1' dir = unsafePerformIO $ do
+  content <- BL.readFile dir
+  let digest = sha1Digest content
+  return digest
+
 showSHA1WithSep' :: FilePath -> String
 showSHA1WithSep' dir = unsafePerformIO $ do
   content <- BL.readFile dir
