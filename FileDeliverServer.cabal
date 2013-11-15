@@ -3,20 +3,27 @@
 
 name:                FileMonitor
 version:             0.1.0.0
--- synopsis:
--- description:
+synopsis: Simple file deliver HTTP Server
+description:
+  FileDeliverServer is experimental implementation to deliver files and its digest.
+  Currently, this program is experimental.
 license:             MIT
 license-file:        LICENSE
 author:              cosmo0920
 -- maintainer:
--- copyright:
+copyright: (c) 2013 cosmo0920
 category:            System
 build-type:          Simple
 cabal-version:       >=1.8
 
 executable FileDeliverServer
   main-is: FileDeliverServer.hs
-  --other-modules:
+  other-modules: BackEnd.RecursiveDir
+                 BackEnd.MkJson
+                 BackEnd.Settings
+                 BackEnd.FileUtil
+                 BackEnd.CalcSHA
+                 BackEnd.Util
   hs-source-dirs: src
   extensions:  OverloadedStrings
                DeriveGeneric
