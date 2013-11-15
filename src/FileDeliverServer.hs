@@ -46,15 +46,15 @@ main = do
           Modified  dir' _ -> do
             let added = relativeDir dir'
             putStr $ unlines [ "Modified: "  ++ show added
-                               , "[notice] needs server reboot!!" ]
+                             , "[notice] needs server reboot!!" ]
           Added     dir' _ -> do
             let modified = relativeDir dir'
             putStr $ unlines [ "Added: " ++ show modified
-                               , "[notice] needs server reboot!!" ]
+                             , "[notice] needs server reboot!!" ]
           Removed   dir' _ -> do
             let removed = relativeDir dir'
             putStr $ unlines [ "Removed: " ++ show removed
-                               , "[notice] needs server reboot!!" ]
+                             , "[notice] needs server reboot!!" ]
 
     _ <- forkIO $ scotty serverPort $ do
       middleware logStdoutDev
