@@ -1,11 +1,11 @@
 -- | Server setting
-module Settings
+module BackEnd.Settings
   ( basepath
   , port
   , monitorpath
   , jsonpath ) where
 import Prelude
-import Util
+import BackEnd.Util
 
 basepath :: IO String
 basepath = readSetting "basepath"

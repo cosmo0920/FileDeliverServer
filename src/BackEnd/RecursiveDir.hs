@@ -1,4 +1,4 @@
-module RecursiveDir
+module BackEnd.RecursiveDir
   ( getRecursiveContents
   , getFileWithRelativePath ) where
 

@@ -1,4 +1,4 @@
-module FileUtil where
+module BackEnd.FileUtil where
 import System.Directory
 import System.IO
 import System.IO.Error hiding (catch)

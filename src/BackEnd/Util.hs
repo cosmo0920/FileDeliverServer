@@ -3,7 +3,7 @@
 --
 --   > readSetting "basepath" :: IO String
 --   > readSetting' "monitorpath" :: IO (Maybe String)
-module Util
+module BackEnd.Util
   ( readSetting
   , readSetting'
   , readSettingInt

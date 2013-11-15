@@ -1,4 +1,4 @@
-module MkJson where
+module BackEnd.MkJson where
 import Control.Applicative (Applicative,pure,(<$>),(<*>))
 import Control.Monad (mzero,(=<<),(<=<),(>=>))
 import Data.Aeson
@@ -12,7 +12,7 @@ import qualified Data.ByteString.Lazy.Char8 as LC (unpack)
 import qualified Data.HashMap.Strict as HM
 import qualified Data.Text as T
 import qualified Filesystem.Path.CurrentOS as FP
-import CalcSHA
+import BackEnd.CalcSHA
 
 s :: String -> String
 s = id
