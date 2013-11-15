@@ -17,6 +17,7 @@ cabal-version:       >=1.8
 executable FileDeliverServer
   main-is: FileDeliverServer.hs
   --other-modules:
+  hs-source-dirs: src
   extensions:  OverloadedStrings
                DeriveGeneric
                FlexibleInstances
