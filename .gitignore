@@ -3,3 +3,4 @@ cabal-dev/
 *.swp
 *.DS_Store
 *.json
+setting.yml
