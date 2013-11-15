@@ -1,61 +1,67 @@
 import System.Directory
 import System.IO
-import Filesystem hiding (readFile, removeFile)
-import qualified Filesystem.Path.Rules as FR
 import qualified Filesystem.Path.CurrentOS as FP
 import System.FSNotify
+import System.Exit
 import Control.Monad
 import Control.Monad.IO.Class
 import Control.Concurrent
-import Control.Exception
-import System.Exit
 import Web.Scotty
 import Network.Wai.Middleware.Static
+import Network.Wai.Middleware.RequestLogger
 import Prelude hiding (catch)
-import System.IO.Error hiding (catch)
+import Data.IORef
+import Data.Aeson (Value)
 import RecursiveDir
 import MkJson
+import Settings
+import FileUtil
 
 main :: IO ()
 main = do
-  let jsonfile = "filelist.json"
+  jsonfile <- jsonpath
   removeIfExists jsonfile
-  dir <- getCurrentDirectory
-  let path = FP.decodeString dir
-  putStrLn $ "[path] " ++ FP.encodeString path
-  setCurrentDirectory $ FP.encodeString path
-  mv <- newEmptyMVar
-  wd <- getWorkingDirectory
+  dir <- basepath
+  path <- basepath
+  monitor <- monitorpath
+  serverPort <- port
+  putStrLn $ "[path] " ++ monitor
+  setCurrentDirectory monitor
+
+  iref <- newIORef (""::Value)
   _ <- forkIO $ do
      threadDelay 3000
-     relative <- liftIO $ getFileWithRelativePath dir
-     removeIfExists jsonfile
-     System.IO.writeFile jsonfile $ showValue relative
-     putMVar mv $ value relative
+     setCurrentDirectory monitor
+     relative <- liftIO $ getFileWithRelativePath monitor
+     writeFile jsonfile $ showValue relative
+     writeIORef iref $ value relative
      putStrLn $ "[genarate] " ++ jsonfile
 
-  putStrLn $ "[watch] " ++ show wd
+  putStrLn $ "[watch] " ++ monitor
   man <- startManager
   forever $ do
     _ <- forkIO $ do
       let relativeDir workdir = makeRelative dir (FP.encodeString workdir)
-      watchTree man wd (const True) $ \event ->
+      watchTree man (FP.decodeString path) (const True) $ \event ->
         case event of
           Modified  dir' _ -> do
             let added = relativeDir dir'
-            putStrLn $ "Modified: "  ++ show added
+            putStr $ unlines [ "Modified: "  ++ show added
+                               , "[notice] needs server reboot!!" ]
           Added     dir' _ -> do
             let modified = relativeDir dir'
-            putStrLn $ "Added: " ++ show modified
+            putStr $ unlines [ "Added: " ++ show modified
+                               , "[notice] needs server reboot!!" ]
           Removed   dir' _ -> do
             let removed = relativeDir dir'
-            putStrLn $ "Removed: " ++ show removed
+            putStr $ unlines [ "Removed: " ++ show removed
+                               , "[notice] needs server reboot!!" ]
 
-    _ <- forkIO $ scotty 3001 $ do
-      currentDir <- liftIO $ getCurrentDirectory
-      middleware $ staticPolicy $ addBase currentDir
+    _ <- forkIO $ scotty serverPort $ do
+      middleware logStdoutDev
+      middleware $ staticPolicy $ noDots >-> addBase monitor
       get "/filelist.json" $ do
-        fileValue <- liftIO $ takeMVar mv
+        fileValue <- liftIO $ readIORef iref
         json (fileValue)
 
     putStrLn "input 'quit' to quit"
@@ -65,9 +71,3 @@ main = do
       stopManager man
       putStrLn "quit"
       exitSuccess
-
-removeIfExists :: FilePath -> IO ()
-removeIfExists fileName = removeFile fileName `catch` handleExists
-  where handleExists e
-          | isDoesNotExistError e = return ()
-          | otherwise = throwIO e

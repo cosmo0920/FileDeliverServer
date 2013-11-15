@@ -1,0 +1,4 @@
+basepath: "/home/<user>/"
+port: 3001
+monitorpath: "/home/<user>/Document/"
+jsonpath: "/home/<user>/filelist.json"

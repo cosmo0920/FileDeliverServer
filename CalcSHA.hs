@@ -4,7 +4,7 @@ import System.IO.Unsafe
 import qualified Data.ByteString.Lazy.Char8 as BL
 
 shaDigest :: BL.ByteString -> String
-shaDigest = showDigest . sha1
+shaDigest = showDigest . sha256
 
 showSHA :: FilePath -> IO String
 showSHA dir = do

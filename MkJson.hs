@@ -23,8 +23,7 @@ assetList path = do
 
 value :: [FilePath] -> Value
 value path = do
-  let sha1 = calcSHA path
-  object [ "files" .= map s (zipWith (++) path (calcSHA path))]
+  object [ "files" .= (map assetList path) ]
 
 showValue :: [FilePath] -> String
 showValue = LC.unpack . encode . value
