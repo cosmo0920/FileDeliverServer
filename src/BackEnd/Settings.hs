@@ -14,4 +14,7 @@ port     = readSettingInt "port"
 monitorpath :: IO String
 monitorpath = readSetting "monitorpath"
 jsonpath :: IO String
-jsonpath = readSetting "jsonpath"
+jsonpath = do
+  base <- readSetting "basepath"
+  jsonfile <- readSetting "jsonpath"
+  return $ base ++ "/" ++ jsonfile

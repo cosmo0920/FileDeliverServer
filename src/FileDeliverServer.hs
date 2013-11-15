@@ -21,17 +21,15 @@ import BackEnd.FileUtil
 main :: IO ()
 main = do
   jsonfile <- jsonpath
-  removeIfExists jsonfile
-  dir <- basepath
-  path <- basepath
+  base <- basepath
   monitor <- monitorpath
   serverPort <- port
-  putStrLn $ "[path] " ++ monitor
+  putStrLn $ "[base path] " ++ base
   setCurrentDirectory monitor
 
   iref <- newIORef (""::Value)
   _ <- forkIO $ do
-     threadDelay 3000
+     removeIfExists jsonfile
      setCurrentDirectory monitor
      relative <- liftIO $ getFileWithRelativePath monitor
      writeFile jsonfile $ showValue relative
@@ -42,8 +40,8 @@ main = do
   man <- startManager
   forever $ do
     _ <- forkIO $ do
-      let relativeDir workdir = makeRelative dir (FP.encodeString workdir)
-      watchTree man (FP.decodeString path) (const True) $ \event ->
+      let relativeDir workdir = makeRelative monitor (FP.encodeString workdir)
+      watchTree man (FP.decodeString monitor) (const True) $ \event ->
         case event of
           Modified  dir' _ -> do
             let added = relativeDir dir'
