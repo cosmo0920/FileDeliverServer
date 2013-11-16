@@ -30,6 +30,7 @@ executable FileDeliverServer
                FlexibleInstances
                CPP
                RecordWildCards
+               DoAndIfThenElse
   ghc-options: -O2 -Wall -threaded
   build-depends:       base                  >= 4.5    && < 5
                      , attoparsec            >= 0.10   && < 0.11

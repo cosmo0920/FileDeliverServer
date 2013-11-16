@@ -7,17 +7,20 @@ data ServerSetting = ServerSetting {
                      , serverPort  :: Int
                      , monitorPath :: String
                      , jsonPath    :: String
+                     , monitorOnly :: Bool
                      } deriving (Show)
 
 serverSetting :: IO ServerSetting
 serverSetting = do
-  base       <- basepath
-  serverport <- port
-  monitor    <- monitorpath
-  json       <- jsonpath
+  base            <- basepath
+  serverport      <- port
+  monitor         <- monitorpath
+  json            <- jsonpath
+  eventMonitor    <- monitoronly
   return ServerSetting {
            basePath    = base
          , serverPort  = serverport
          , monitorPath = monitor
          , jsonPath    = json
+         , monitorOnly = eventMonitor
          }

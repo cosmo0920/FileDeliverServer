@@ -26,5 +26,9 @@ monitorRecursive ServerSetting{..} man iref = do
 
 monitorResult :: ServerSetting -> String -> String -> IORef Value -> IO ()
 monitorResult ServerSetting{..} outStr file iref = do
-  putStrLn $ outStr ++ file
-  generateJson ServerSetting{..} iref
+  if monitorOnly then
+    putStr $ unlines [ outStr ++ file
+                     , "[notice] file(s) changed. it needs server reboot!!" ]
+  else do
+    putStrLn $ outStr ++ file
+    generateJson ServerSetting{..} iref
