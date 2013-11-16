@@ -17,13 +17,3 @@ unsafeShowSHA dir = unsafePerformIO $ do
   content <- BL.readFile dir
   let digest = shaDigest content
   return digest
-
-unsafeShowSHAWithSep :: FilePath -> String
-unsafeShowSHAWithSep dir = unsafePerformIO $ do
-  content <- BL.readFile dir
-  let digest = shaDigest content
-  return $ "," ++ digest
-
-calcSHA :: [FilePath] -> [String]
-calcSHA dir = do
-  map unsafeShowSHAWithSep dir
