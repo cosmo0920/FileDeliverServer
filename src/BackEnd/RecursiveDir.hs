@@ -13,7 +13,7 @@ infixr 5 $.
 
 getValidContents :: FilePath -> IO [String]
 getValidContents path =
-    filter (`notElem` [".", "..", ".git", ".svn"]) <$> getDirectoryContents path
+    filter (`notElem` [".", "..", ".git", ".svn", ".hg"]) <$> getDirectoryContents path
 
 isSearchableDir :: FilePath -> IO Bool
 isSearchableDir dir =
