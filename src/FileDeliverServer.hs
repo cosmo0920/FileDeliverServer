@@ -27,7 +27,7 @@ main = do
   putStrLn $ "[watch] " ++ monitor
   man <- startManager
   forever $ do
-    _ <- forkIO $ monitorRecursive setting man
+    _ <- forkIO $ monitorRecursive setting man iref
 
     _ <- forkIO $ scottyServer setting iref
 
