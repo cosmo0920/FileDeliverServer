@@ -5,6 +5,7 @@ module BackEnd.Settings
   , monitorpath
   , jsonpath ) where
 import Prelude
+import System.FilePath
 import BackEnd.Util
 
 basepath :: IO String
@@ -15,6 +16,6 @@ monitorpath :: IO String
 monitorpath = readSetting "monitorpath"
 jsonpath :: IO String
 jsonpath = do
-  base <- readSetting "basepath"
+  base <- basepath
   jsonfile <- readSetting "jsonpath"
-  return $ base ++ "/" ++ jsonfile
+  return $ joinPath [base , jsonfile]

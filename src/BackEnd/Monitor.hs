@@ -1,6 +1,6 @@
 module BackEnd.Monitor where
 import qualified Filesystem.Path.CurrentOS as FP
-import System.FilePath.Posix
+import System.FilePath
 import System.FSNotify
 import Prelude hiding (catch)
 import BackEnd.Type
