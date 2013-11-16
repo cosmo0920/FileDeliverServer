@@ -5,7 +5,7 @@ module BackEnd.RecursiveDir
 import Control.Applicative ((<$>),(<*>))
 import Control.Monad (forM)
 import System.Directory (getDirectoryContents, doesDirectoryExist, getPermissions, Permissions(..))
-import System.FilePath.Posix
+import System.FilePath
 
 infixr 5 $.
 ($.) :: (a -> b) -> a -> b
