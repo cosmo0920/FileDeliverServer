@@ -29,6 +29,7 @@ executable FileDeliverServer
                DeriveGeneric
                FlexibleInstances
                CPP
+               RecordWildCards
   ghc-options: -O2 -Wall -threaded
   build-depends:       base                  >= 4.5    && < 5
                      , attoparsec            >= 0.10   && < 0.11
