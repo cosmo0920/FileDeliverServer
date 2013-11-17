@@ -1,4 +1,5 @@
-module BackEnd.Monitor where
+module BackEnd.Monitor
+  ( monitorRecursive ) where
 import qualified Filesystem.Path.CurrentOS as FP
 import System.FilePath
 import System.FSNotify

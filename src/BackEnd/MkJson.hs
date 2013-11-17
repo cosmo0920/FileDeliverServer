@@ -1,4 +1,7 @@
-module BackEnd.MkJson where
+module BackEnd.MkJson
+  ( assetList
+  , value
+  , showValue ) where
 import Data.Aeson
 import qualified Data.ByteString.Lazy.Char8 as LC (unpack)
 import qualified Data.Text as T

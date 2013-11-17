@@ -1,4 +1,6 @@
-module BackEnd.Type where
+module BackEnd.Type
+  ( ServerSetting(..)
+  , serverSetting ) where
 import Prelude
 import BackEnd.Settings
 

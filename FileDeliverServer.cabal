@@ -18,11 +18,15 @@ cabal-version:       >=1.8
 
 executable FileDeliverServer
   main-is: FileDeliverServer.hs
-  other-modules: BackEnd.RecursiveDir
-                 BackEnd.MkJson
-                 BackEnd.Settings
+  other-modules: BackEnd.CalcSHA
                  BackEnd.FileUtil
-                 BackEnd.CalcSHA
+                 BackEnd.GenerateJson
+                 BackEnd.MkJson
+                 BackEnd.Monitor
+                 BackEnd.RecursiveDir
+                 BackEnd.Server
+                 BackEnd.Settings
+                 BackEnd.Type
                  BackEnd.Util
   hs-source-dirs: src
   extensions:  OverloadedStrings

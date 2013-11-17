@@ -1,4 +1,5 @@
-module BackEnd.GenerateJson where
+module BackEnd.GenerateJson
+  ( generateJson ) where
 import System.Directory
 import System.IO
 import Control.Monad.IO.Class

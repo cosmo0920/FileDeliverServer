@@ -1,4 +1,5 @@
-module BackEnd.Server where
+module BackEnd.Server
+  ( scottyServer ) where
 import Web.Scotty
 import Network.Wai.Middleware.Static
 import Network.Wai.Middleware.RequestLogger
