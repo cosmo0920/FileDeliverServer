@@ -2,7 +2,11 @@ module BackEnd.GenerateJson where
 import System.Directory
 import System.IO
 import Control.Monad.IO.Class
+#if __GLASGOW_HASKELL__ <= 704
 import Prelude hiding (catch)
+#else
+import Prelude
+#endif
 import Data.IORef
 import Data.Aeson (Value)
 import BackEnd.Type

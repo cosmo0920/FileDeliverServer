@@ -4,7 +4,11 @@ import System.FilePath
 import System.FSNotify
 import Data.IORef
 import Data.Aeson (Value)
+#if __GLASGOW_HASKELL__ <= 704
 import Prelude hiding (catch)
+#else
+import Prelude
+#endif
 import BackEnd.Type
 import BackEnd.GenerateJson
 

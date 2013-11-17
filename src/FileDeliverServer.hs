@@ -4,7 +4,11 @@ import System.FSNotify
 import System.Exit
 import Control.Monad
 import Control.Concurrent
+#if __GLASGOW_HASKELL__ <= 704
 import Prelude hiding (catch)
+#else
+import Prelude
+#endif
 import Data.IORef
 import Data.Aeson (Value)
 import BackEnd.Settings
