@@ -28,12 +28,14 @@ main = do
   putStrLn $ "[watch] " ++ monitor
   man <- startManager
   forever $ do
-    monitorThread <- forkIO $ monitorRecursive setting man iref
+    _monitorThread <- forkIO $ monitorRecursive setting man iref
 
-    serverThread <- forkIO $ scottyServer setting iref
+    _serverThread <- forkIO $ scottyServer setting iref
 
     line <- getLine
-    mapM_ killThread [monitorThread, serverThread]
+#if !defined(mingw32_HOST_OS) && !defined(_WIN32)
+    mapM_ killThread [_monitorThread, _serverThread]
+#endif
     when (line == "quit" || line == "q") $ do
       putStrLn "watching stopped"
       stopManager man
