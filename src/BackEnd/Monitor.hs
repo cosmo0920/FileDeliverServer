@@ -28,7 +28,8 @@ monitorResult :: ServerSetting -> String -> String -> IORef Value -> IO ()
 monitorResult ServerSetting{..} outStr file iref = do
   if monitorOnly then
     putStr $ unlines [ outStr ++ file
-                     , "[notice] file(s) changed. it needs server reboot!!" ]
+                     , "[notice] file(s) changed. it needs regenerate json!!"
+                     , "[notice] server reboot or type ('json'|'j')" ]
   else do
     putStrLn $ outStr ++ file
     generateJson ServerSetting{..} iref

@@ -18,6 +18,7 @@ main = do
   base <- basepath
   monitor <- monitorpath
   setting <- serverSetting
+  usage
   putStrLn $ "[base path] " ++ base
   setCurrentDirectory monitor
 
@@ -31,11 +32,18 @@ main = do
 
     serverThread <- forkIO $ scottyServer setting iref
 
-    putStrLn "input 'quit' to quit"
     line <- getLine
     mapM_ killThread [monitorThread, serverThread]
-    when (line == "quit") $ do
+    when (line == "quit" || line == "q") $ do
       putStrLn "watching stopped"
       stopManager man
       putStrLn "quit"
       exitSuccess
+    when (line == "json" || line == "j") $ do
+      _ <- forkIO $ generateJson setting iref
+      putStrLn "[notice] regenerate JSON"
+
+usage :: IO ()
+usage = do
+  putStr $ unlines [ "[usage] input 'quit' or 'q' to quit"
+                   , "[usage] input 'json' or 'j' to regenerate JSON and IORef value" ]
