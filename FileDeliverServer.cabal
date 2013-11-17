@@ -18,7 +18,8 @@ cabal-version:       >=1.8
 
 executable FileDeliverServer
   main-is: FileDeliverServer.hs
-  other-modules: BackEnd.CalcSHA
+  other-modules: BackEnd.Barrier
+                 BackEnd.CalcSHA
                  BackEnd.FileUtil
                  BackEnd.GenerateJson
                  BackEnd.MkJson
