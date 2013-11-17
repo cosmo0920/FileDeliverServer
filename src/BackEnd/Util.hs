@@ -5,7 +5,7 @@
 --   > readSetting' "monitorpath" :: IO (Maybe String)
 module BackEnd.Util
   ( readSetting
-  , readSetting'
+  , readSettingMaybe
   , readSettingInt
   , readSettingBool ) where
 
@@ -20,13 +20,13 @@ import Prelude
 -- | read from setting.json and return String
 readSetting :: String -> IO String
 readSetting val = do
-  retval <- readSetting' val
+  retval <- readSettingMaybe val
   let _retval = fromJust retval
   return _retval
 
 -- | read from setting.json and return Maybe String
-readSetting' :: String -> IO (Maybe String)
-readSetting' val = do
+readSettingMaybe :: String -> IO (Maybe String)
+readSettingMaybe val = do
   v <- readYamlFile
   let retval = v ^. key (pack val) :: Maybe String
   return retval
