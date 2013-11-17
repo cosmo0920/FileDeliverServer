@@ -1,5 +1,5 @@
-basepath: "/home/<user>/"
+basepath: /home/<user>/
 port: 3001
-monitorpath: "/home/<user>/Document/"
-jsonpath: "filelist.json"
+monitorpath: /home/<user>/Document/
+jsonpath: filelist.json
 monitoronly: true
