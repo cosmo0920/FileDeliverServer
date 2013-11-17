@@ -8,7 +8,9 @@ import Prelude hiding (catch)
 import BackEnd.Type
 import BackEnd.GenerateJson
 
--- | TODO: avoid all JSON value update
+-- | TODO: avoid all JSON value update.
+--
+--   /too many update workaround: monitor only -> true/
 monitorRecursive :: ServerSetting -> WatchManager -> IORef Value -> IO ()
 monitorRecursive ServerSetting{..} man iref = do
   let relativeDir workdir = makeRelative monitorPath (FP.encodeString workdir)
