@@ -39,4 +39,4 @@ monitorResult ServerSetting{..} outStr file iref = do
                      , "[notice] server reboot or type ('json'|'j')" ]
   else do
     putStrLn $ outStr ++ file
-    generateJson ServerSetting{..} iref
+    generateJsonWithLock ServerSetting{..} iref
