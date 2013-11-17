@@ -26,7 +26,6 @@ executable FileDeliverServer
                  BackEnd.Util
   hs-source-dirs: src
   extensions:  OverloadedStrings
-               DeriveGeneric
                FlexibleInstances
                CPP
                RecordWildCards
