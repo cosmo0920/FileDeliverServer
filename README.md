@@ -42,7 +42,7 @@ $ ~/.cabal/bin/cabal-dev install --only-dependencies
 ```bash
 $ ~/.cabal/bin/cabal-dev configure
 $ ~/.cabal/bin/cabal-dev build
-$ cp setting-dummy.yaml setting.yaml
+$ cp setting-dummy.yml setting.yml
 ```
 
 * * * *
@@ -80,13 +80,15 @@ setting.yml contains follwing items:
 #### File path format
 
 * Linux and other unix like Platform example
-  ```/home/<username>/```
+    - ```/home/<username>/```
+
 * OSX example
-  ```/Users/<usename>/```
+    - ```/Users/<usename>/```
+
 * Windows
-  ```C:\Users\<username>\```
-    - when using "", ```"C:\\Users\\<username>\\"```
-    - allow '/' instead of '\'
+    - ```C:\Users\<username>\```
+        + when using "", ```"C:\\Users\\<username>\\"```
+        + allow '/' instead of '\'
 
 * * * *
 
